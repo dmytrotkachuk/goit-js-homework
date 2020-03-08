@@ -10,7 +10,9 @@ do {
   if (Number.isNaN(Number(message))) {
     alert('Это не число!');
   } else {
-    numbers.push(input);
+    if (message !== null) {
+      numbers.push(input);
+    }
   }
 } while (message !== null);
 
