@@ -18,6 +18,6 @@ do {
 if (message === null && numbers.length >= 1) {
   for (const number of numbers) {
     total += number;
-    console.log(`Cумма сложения составила " ${total} "`);
   }
+  console.log(`Cумма сложения составила " ${total} "`);
 }
