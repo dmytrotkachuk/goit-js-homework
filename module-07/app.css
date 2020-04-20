@@ -1,0 +1,31 @@
+#gallery {
+  flex-direction: column;
+  justify-content: space-between;
+  list-style: none;
+  
+}
+
+#counter{
+  padding: 100px;
+  display: flex;
+  /* justify-content: center; */
+}
+
+#counter button{
+margin: 0 10px;
+padding: 0 10px;
+}
+
+
+
+#validation-input {
+  border: 3px solid #bdbdbd;
+}
+
+#validation-input.valid {
+  border-color: #4caf50;
+}
+
+#validation-input.invalid {
+  border-color: #f44336;
+}
