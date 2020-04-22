@@ -29,14 +29,14 @@ function amount (e) {
 }
 
 function createBoxes (amount){
-  
+  for (let i = 0 ; i <inputAmount.valueAsNumber ; i++){
   const box = document.createElement('DIV')
   box.style.width = '30px'
   box.style.height = '30px'
   box.style.background = '#'+Math.random().toString(16).substr(-6);
   boxes.append(box)
   // console.dir(boxes.attributes.length )
-
+}
 }
 
 console.dir(boxes)
