@@ -24,7 +24,9 @@ const boxes = document.querySelector('#boxes')
 render.addEventListener('click', createBoxes)
 destroy.addEventListener('click', destroyBoxes)
 
-const amount = inputAmount.valueAsNumber
+function amount (e) {
+  return inputAmount.valueAsNumber
+}
 
 function createBoxes (amount){
   
@@ -33,12 +35,12 @@ function createBoxes (amount){
   box.style.height = '30px'
   box.style.background = '#'+Math.random().toString(16).substr(-6);
   boxes.append(box)
-
+  // console.dir(boxes.attributes.length )
 
 }
 
-// console.dir(boxes)
-// console.log(boxes.attributes.length )
+console.dir(boxes)
+console.log(boxes.attributes.length )
 
 
 function destroyBoxes (event){
