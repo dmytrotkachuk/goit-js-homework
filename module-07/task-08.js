@@ -24,23 +24,24 @@ const boxes = document.querySelector('#boxes')
 render.addEventListener('click', createBoxes)
 destroy.addEventListener('click', destroyBoxes)
 
-const amount =  event =>{
-  console.log(event.currentTarget.value)
-  
+
+function value (event) {
+  console.log(inputAmount.value)
   
 }
-inputAmount.addEventListener('change', amount)
+inputAmount.addEventListener('blur', value)
 
-function createBoxes (amount){
+
+function createBoxes (){
   const box = document.createElement('DIV')
   box.style.width = '30px'
   box.style.height = '30px'
   box.style.background = '#'+Math.random().toString(16).substr(-6);
   boxes.append(box)
-  // console.log(event.currentTarget)
-
 }
+
+
+
 function destroyBoxes (event){
   boxes.innerHTML = ''
-  // console.log(event.currentTarget)
 }
