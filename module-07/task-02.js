@@ -16,13 +16,13 @@ const ingredients = [
 ];
 
 
-createIngredientsList(ingredients);
+const list = document.querySelector('#ingredients')
+const items = ingredients.map(ingredient => {
+  const item = document.createElement('li');
+  item.textContent = ingredient;
+  return item
+})
+list.append(...items)
+// console.log(list)
 
-function createIngredientsList() {
-  const list = document.querySelector('#ingredients');
-  for (const ingredient of ingredients) {
-    const listItem = document.createElement('li');
-    listItem.textContent = ingredient;
-    list.append(listItem);
-  }
-}
+

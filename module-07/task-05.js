@@ -12,7 +12,11 @@ input.addEventListener('input', changeOutput)
 
 function changeOutput (event){
     output.textContent = event.currentTarget.value
+    if(event.currentTarget.value.length === 0){
+        output.textContent = 'Незнакомец'
+    }
     
 }
 
 // input.removeEventListener('input', changeOutput)
+
