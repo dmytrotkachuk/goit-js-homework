@@ -1,7 +1,7 @@
 
 
 const input = document.querySelector('input#validation-input')
-input.addEventListener('input', inputValidation)
+input.addEventListener('change', inputValidation)
 
 function inputValidation(event){
   if (event.currentTarget.value.length === 6){
@@ -12,6 +12,6 @@ function inputValidation(event){
     input.classList.add('invalid')}
 
 
-  input.removeEventListener('change', inputValidation)
+  // input.removeEventListener('change', inputValidation)
 }
 

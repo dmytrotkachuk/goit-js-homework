@@ -16,33 +16,46 @@
 */
 
 
-const render= document.querySelector('button[data-action="render"]')
-const destroy= document.querySelector('button[data-action="destroy"]')
-const inputAmount = document.querySelector('#controls>input')
+const render = document.querySelector('button[data-action="render"]')
+const destroy = document.querySelector('button[data-action="destroy"]')
+const controls = document.querySelector('#controls')
+const input = document.querySelector('#controls>input')
 const boxes = document.querySelector('#boxes')
 
-render.addEventListener('click', createBoxes)
-destroy.addEventListener('click', destroyBoxes)
+controls.addEventListener('click', onClick)
 
-function amount (e) {
-  return inputAmount.valueAsNumber
+
+function onClick (e){
+  if (e.target === render){
+    const amount = Number(input.value)
+    createBoxes(amount)
+  } 
+  if (e.target === destroy){
+    destroyBoxes()
+  }
 }
 
 function createBoxes (amount){
-  for (let i = 0 ; i <inputAmount.valueAsNumber ; i++){
-  const box = document.createElement('DIV')
-  box.style.width = '30px'
-  box.style.height = '30px'
-  box.style.background = '#'+Math.random().toString(16).substr(-6);
-  boxes.append(box)
-  // console.dir(boxes.attributes.length )
-}
-}
+  destroyBoxes()
+  const randomColor = () => (Math.random() * 255).toFixed(0);
+  let size = 30
 
-console.dir(boxes)
-console.log(boxes.attributes.length )
+  for (let i = 0 ; i < amount ; i++){
+  const box = document.createElement('DIV')
+  const backgroundColor = `rgb(${randomColor()},${randomColor()},${randomColor()})`;
+  box.setAttribute("style", 
+  `width:${size}px;
+  height:${size}px;
+  background-color:${backgroundColor};`)
+
+
+  boxes.append(box)
+  
+}
+}
 
 
 function destroyBoxes (event){
   boxes.innerHTML = ''
+  input.value = ''
 }
