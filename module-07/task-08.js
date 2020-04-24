@@ -27,7 +27,7 @@ controls.addEventListener('click', onClick)
 
 function onClick (e){
   if (e.target === render){
-    const amount = Number(input.value)
+    const amount = Number(input.value) 
     createBoxes(amount)
   } 
   if (e.target === destroy){
@@ -39,21 +39,18 @@ function createBoxes (amount){
   destroyBoxes()
   const randomColor = () => (Math.random() * 255).toFixed(0);
   let size = 30
-
   for (let i = 0 ; i < amount ; i++){
   const box = document.createElement('DIV')
+  size += 10;
   const backgroundColor = `rgb(${randomColor()},${randomColor()},${randomColor()})`;
+  // const backgroundColor = '#'+Math.random().toString(16).substr(-6);
   box.setAttribute("style", 
   `width:${size}px;
   height:${size}px;
   background-color:${backgroundColor};`)
-
-
-  boxes.append(box)
   
-}
-}
-
+  boxes.append(box)
+}}
 
 function destroyBoxes (event){
   boxes.innerHTML = ''
