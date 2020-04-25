@@ -54,7 +54,8 @@ const modalBtn = document.querySelector('button[data-action="close-lightbox"]')
 
 
 
-const galleryItems = images.reduce((acc,el)=>{
+function buildTheGallery () {
+  const galleryItems = images.reduce((acc,el)=>{
   acc+= `<li class="gallery__item">
   <a
     class="gallery__link"
@@ -70,35 +71,51 @@ const galleryItems = images.reduce((acc,el)=>{
 </li>`
   return acc
 },'')
-
-gallery.insertAdjacentHTML("beforeend", galleryItems)
-
-
-gallery.addEventListener('click' , handleClick) 
+gallery.insertAdjacentHTML("beforeend", galleryItems)}
+buildTheGallery()
 
 
-function handleClick(e){
+
+
+gallery.addEventListener('click' , openModal) 
+
+
+function openModal (e){
+  //Prevent open the link
   e.preventDefault()
-  const img = e.target
-  if(e.target.tagName !== 'IMG'){
-    return
-  }
-  openModal(img)
-}
-
-function openModal (img){
+  //Set 'Active' class of modal link
   modal.classList.add('is-open')
-  modalImage.setAttribute('src', img.dataset.source)
-  modalImage.setAttribute('alt' ,img.alt)
+  //Set attributes
+  modalImage.setAttribute('src',e.target.dataset.source)
+  modalImage.setAttribute('alt', e.target.alt)
+  //Add event listener
   modal.addEventListener('click' , closeModal) 
+  document.addEventListener('keydown', keyPress)
 }
 
 
 function closeModal (e) {
-  if (e.target.tagName === 'IMG'){
+  // Close modal with ckick on overlay or btn
+  if (e && e.target === modalImage){
     return
   }
+  //Remove 'Active' class of modal link
   modal.classList.remove('is-open')
-  modal.removeEventListener('click' , closeModal) 
+  //Remove attributes
+  modalImage.removeAttribute('src')
+  modalImage.removeAttribute('alt')
+  //Remove event listener
+  modal.removeEventListener('click' , closeModal)
+  document.removeEventListener('keydown', keyPress) 
+}
 
+function keyPress (e) {
+ if (e.keyCode === 27){
+  closeModal()
+  return
+ }
+ if (e.keyCode === 13){
+  e.preventDefault()
+  return
+ }
 }
