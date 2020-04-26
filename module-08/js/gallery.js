@@ -50,7 +50,7 @@ const gallery = document.querySelector('.js-gallery')
 const modal = document.querySelector('.js-lightbox')
 const modalImage = modal.querySelector('img')
 const modalBtn = document.querySelector('button[data-action="close-lightbox"]')
-
+let slideShowId;
 
 
 
@@ -77,17 +77,71 @@ buildTheGallery()
 
 
 
-gallery.addEventListener('click' , openModal) 
+gallery.addEventListener('click' , onGalleryClick) 
 
 
-function openModal (e){
-  //Prevent open the link
-  e.preventDefault()
+function keyPress (e) {
+  let index ;
+  switch(e.keyCode){
+    case 27: //Esc
+    closeModal()
+    break;
+    case 13://Enter
+    e.preventDefault()
+    break;
+    case 37://Left
+    //'Index' return index image of images which setted in modalImage.src
+    index = images.findIndex(_ => _.original === modalImage.src)
+    index--;
+    if (index < 0){
+      index = images.length-1;
+    }
+    openModal(images[index].original, images[index].description)
+    break;
+    case 39://Right
+    //'Index' return index image of images which setted in modalImage.src
+    index = images.findIndex(_ => _.original === modalImage.src)
+    index++;
+    if (index === images.length){
+      index = 0
+    }
+    openModal(images[index].original, images[index].description)
+    break;
+    case 32://Space
+    e.preventDefault()
+    slideShow()
+    break;
+  }}
+  
+  function slideShow(){
+    if (slideShowId){
+      //Disable slideshow if interval wad setted
+      clearInterval(slideShowId);
+      slideShowId = 0;
+      } else {
+      //if slideshow is enable : once in 2 second 'right' pressed
+      slideShowId = setInterval(keyPress, 2000, {keyCode:39})
+      }
+  }
+
+
+function onGalleryClick (e){
+  if (e.target === e.currentTarget){
+    //if clicked not on the image - break 
+      return
+    }
+    //Prevent open the link
+    e.preventDefault()
+    //Open modal and set attributes modalImage.src and modalImage.alt
+    openModal(e.target.dataset.source, e.target.alt)
+}
+
+function openModal (src,alt){
   //Set 'Active' class of modal link
   modal.classList.add('is-open')
   //Set attributes
-  modalImage.setAttribute('src',e.target.dataset.source)
-  modalImage.setAttribute('alt', e.target.alt)
+  modalImage.setAttribute('src', src)
+  modalImage.setAttribute('alt', alt)
   //Add event listener
   modal.addEventListener('click' , closeModal) 
   document.addEventListener('keydown', keyPress)
@@ -95,8 +149,8 @@ function openModal (e){
 
 
 function closeModal (e) {
-  // Close modal with ckick on overlay or btn
   if (e && e.target === modalImage){
+    clickOnModalImage(e)
     return
   }
   //Remove 'Active' class of modal link
@@ -109,13 +163,8 @@ function closeModal (e) {
   document.removeEventListener('keydown', keyPress) 
 }
 
-function keyPress (e) {
- if (e.keyCode === 27){
-  closeModal()
-  return
- }
- if (e.keyCode === 13){
-  e.preventDefault()
-  return
- }
+function clickOnModalImage (e){
+  const width = e.target.naturalWidth
+  const clickX = e.clientX
+  keyPress({keyCode:(clickX > width/2? 39:37)})
 }
