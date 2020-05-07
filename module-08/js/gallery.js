@@ -153,6 +153,8 @@ function closeModal (e) {
     clickOnModalImage(e)
     return
   }
+  //Stop Slideshow
+  clearInterval(slideShowId)
   //Remove 'Active' class of modal link
   modal.classList.remove('is-open')
   //Remove attributes
